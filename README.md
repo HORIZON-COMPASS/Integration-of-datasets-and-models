@@ -7,13 +7,13 @@ This work is part of work package 5 of the COMPASS project, whose overarching ob
 This task involved several important steps, including the development of an interface to facilitate the identification and searching of Copernicus datasets (including climate change services, disaster management services and land monitoring services) together with other EU-supported datasets (e.g. ERA5, EMO-1 meteorological observations, Eurostat), providing a search service for these resources in a machine-readable form. This interface is designed to facilitate efficient data retrieval and enable interoperability with different analytical platforms. It will serve as a streamlined access point for researchers, policy makers and other stakeholders to engage with these important datasets. Integration of existing and newly developed climate, exposure and vulnerability toolkits such as Bias-adjustment and Statistical Downscaling (BASD), Historical Analysis of Nature Hazards in Europe (HANZE) and ATTRIbuting Climate Impacts (ATTRICI - in progress) was also performed.
 
 The workflow involves many steps, including:
-**Obtaining and loading data**
+**Obtaining and loading data**<br/>
 The main objective of the task was to download ERA-5 data from Copernicus Marine API from 1950-2023 in GRIB format. To access the API, the python package “cdsapi” was installed to obtain the API key to download the data using Python. The data was downloaded and assembled in a respective folder.
 
-**ERA5 and ERA5-Land data processing**
+**ERA5 and ERA5-Land data processing**<br/>
 A Python script was utilized to automate the necessary processing of downloaded ERA5-Land climate data for each year from 1950 to 2023. It converts monthly GRIB files into daily NetCDF files and calculates daily aggregates of various climate variables (temperature, precipitation, solar radiation, wind speed). It also calculates relative humidity (hurs) from the temperature and precipitation.
 
-**EMO-1 data processing**
+**EMO-1 data processing**<br/>
 The processing of EMO-1 data is different than ERA5 as the data includes daily totals for precipitation, minimum and maximum temperatures, wind speed, solar radiation, and water vapor pressure. Therefore, processing involved following changes using Python script:
 1.	Temperature Conversion:
 Converts maximum (tx) and minimum (tn) temperatures from Celsius to Kelvin by adding 273.15.
@@ -31,38 +31,38 @@ Converts global radiation (rg) to downward short-wave radiation flux (`rsds`) by
 6. Time Adjustment:
 Applies a one-day backward time shift to certain variables (hurs, sfcWind, pr, rsds).
 
-**Data merging**
+**Data merging**<br/>
 Subsequently, the pre-processed ERA5-Land and EMO-1 data were merged into two separate files as the merging of these files allows for easier handling of long-term climate data series, which is crucial for ease in running simulations in later stages of the process.
 
-**Processing of merged ERA5-Land for BASD**
+**Processing of merged ERA5-Land for BASD**<br/>
 Subsequently, the pre-processed ERA5-Land and EMO-1 data were merged into two separate files as the merging of these files allows for easier handling of long-term climate data series, which is crucial for ease in running simulations in later stages of the process. The script will also introduce two new variables:
 The temperature data (tas, tasmin, and tasmax) will be converted into two additional metrics:
 1.	Temperature Range (tasrange): Defined as the difference between maximum and minimum temperatures (tx - tn).
 2.	Temperature Skewness (tasskew): Calculated as (tas - tn) / (tx - tn), indicating the relative position of daily temperature within the daily range.
 
-**Processing of merged EMO-1 data**
+**Processing of merged EMO-1 data**<br/>
 The merged EMO-1 data was scaled to the same resolution as ERA5-Land to ensure consistency in the BASD procedure. The procedure involved generating a grid file with ERA5-Land and remapping the generated weight file from the EMO-1 file based on the grid file. Finally, an aggregated file was generated which is remapped based on the grid file from ERA5-Land ensuring a similar resolution.
 
-**Processing of merged EMO-1 data for BASD**
+**Processing of merged EMO-1 data for BASD**<br/>
 A similar procedure with the identical script as described above was performed on EMO-1 data to ensure the consistency of format between two datasets for use in BASD script.
 
-**BASD with ISIMIPBASDv3.0.2**
+**BASD with ISIMIPBASDv3.0.2**<br/>
 The adapted script from Stefan Lange ISIMIPBASDv3.0.2 was adapted for BASD of ERA5-Land data based on finer resolution EMO-1 data that was processed and combined with the coarser resolution EMO-1 data which was converted to the same resolution as ERA5-Land. By doing so, the ERA5-Land was downscaled to the same resolution as that of EMO-1.
 
-**Convert BASD ERA5-Land to EMO-1 format**
+**Convert BASD ERA5-Land to EMO-1 format**<br/>
 The script in this task performs several procedures to convert climate data processed using the BASD back into a specific format for the EMO-1 model. It utilizes a set of formulas to convert each specific variable to the variables that are available in EMO-1 such as (sfcWind) to (ws). The script covers the duration from 1950-2023.
 
-**Final post-processing of ERA5-Land data**
+**Final post-processing of ERA5-Land data**<br/>
 The final processing is necessary to handle time shift adjustments and the handling of correct units for each variable for consistency between the datasets. The Python script starts by computing a land mask for the BASD dataset, then extracts grid information and calculates re-gridding weights for the ERA5 data. For each year, the script processed the variable files by setting up file names for input and output. It handled the re-gridding of ERA5 files to match the BASD grid, adjusting for time shifts where necessary. It converted relative humidity (hurs) into partial pressure (pd) for certain variables and ensured consistency in units and time shifts across files.
 The script also corrected the time vector, processed and compressed data using cdo commands for specific meteorological variables, and applied transformations such as packing values into smaller byte formats and adjusting chunking for NetCDF outputs. The time units are adapted depending on the period (1950-1989 or 1990-2022), and temporary files are removed at the end of each iteration. The complete flowchart for the tasks is shown in Figure 1 (a)).
 
-**Modification in tasks to adapt to daily data**
+**Modification in tasks to adapt to daily data**<br/>
 After completion of the procedure, the tasks were modified to adapt to the daily data which requires changes to some of the tasks and removal of unnecessary tasks. The major changes were the removal of step 3 and step 4 as the daily data doesn’t need merging (Figure 1 (b)).
 
-**Daily, monthly and yearly mean values**
+**Daily, monthly and yearly mean values**<br/>
 Dedicated Python scripts were prepared to calculate mean values for each of the variables on a daily, monthly and yearly basis. The scripts will be able to visualize the data and provide information regarding the trends observed.
 
-**LISVAP model**
+**LISVAP model**<br/>
 The LISFLOOD model is a hydrological rainfall-runoff and channel routing model developed by the Floods Group within the Natural Hazards Project at the Joint Research Centre (JRC) of the European Commission. This model will be utilized for simulating hydrological processes. Its primary applications include flood forecasting, evaluating river regulation measures, assessing the impacts of land-use changes, and analyzing the effects of climate change. The LISVAP model in this WP will be used for the calculation of Potential reference evapotranspiration (ET0).
 <br/><br/>
 <img src="https://naturalhazards.eu/workflow.jpg" alt="wp5 workflow" style="max-width:60%;">
