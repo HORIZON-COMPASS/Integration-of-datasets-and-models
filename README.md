@@ -6,7 +6,7 @@ This work is part of work package 5 of the COMPASS project, whose overarching ob
 ## Description
 This task involved several important steps, including the development of an interface to facilitate the identification and searching of Copernicus datasets (including climate change services, disaster management services and land monitoring services) together with other EU-supported datasets (e.g. ERA5, EMO-1 meteorological observations, Eurostat), providing a search service for these resources in a machine-readable form. This interface is designed to facilitate efficient data retrieval and enable interoperability with different analytical platforms. It will serve as a streamlined access point for researchers, policy makers and other stakeholders to engage with these important datasets. Integration of existing and newly developed climate, exposure and vulnerability toolkits such as Bias-adjustment and Statistical Downscaling (BASD), Historical Analysis of Nature Hazards in Europe (HANZE) and ATTRIbuting Climate Impacts (ATTRICI - in progress) was also performed.
 
-The workflow involves many steps, including:
+The workflow involves many steps, including:<br/>
 **Obtaining and loading data**<br/>
 The main objective of the task was to download ERA-5 data from Copernicus Marine API from 1950-2023 in GRIB format. To access the API, the python package “cdsapi” was installed to obtain the API key to download the data using Python. The data was downloaded and assembled in a respective folder.
 
