@@ -74,7 +74,9 @@ The code is under development and this file will be updated to reflect the curre
 Detailed information can be found in the [step-by-step-guide.ipynb](https://github.com/HORIZON-COMPASS/Integration-of-datasets-and-models/blob/main/step-by-step-guide.ipynb) file, which includes a description of each step and error handling procedures.   
 
 ## How to contribute
-We welcome contributions to improve this project! Here are some ways you can help: <b>Report Bugs</b>: If you find a bug, please open an issue with detailed information about the problem and how to reproduce it. <b>Submit Pull Requests</b>: If you want to fix a bug or implement a feature, follow these steps:
+We welcome contributions to improve this project! Here are some ways you can help: <br/>
+<b>Report Bugs</b>: If you find a bug, please open an issue with detailed information about the problem and how to reproduce it. <br/>
+<b>Submit Pull Requests</b>: If you want to fix a bug or implement a feature, follow these steps:
 <ol>
 <li>Fork the repository.</li>
 <li>Create a new branch (git checkout -b feature/YourFeatureName).</li>
