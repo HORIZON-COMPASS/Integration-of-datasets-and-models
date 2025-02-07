@@ -12,7 +12,7 @@ opath="${output_dir}/step_9/"
 ###################################### 
 #            1
 ######################################
- Temperature
+# Temperature
 tas="${output_dir}/step_8/ERA5_tas_ERA5_2023_basd.nc"
 tasrange="${output_dir}/step_8/ERA5_tasrange_ERA5_2023_basd.nc"
 tas_a="${opath}t_$(basename "$tas" .nc).nc"
