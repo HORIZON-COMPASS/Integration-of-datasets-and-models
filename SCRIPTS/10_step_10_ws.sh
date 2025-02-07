@@ -1,4 +1,7 @@
 #!/bin/bash
+
+output_dir='/LOCATION-TO-YOUR-FOLDER/compass_framework'  # Keep location of Python to compass_framework folder
+
 ipath="${output_dir}/step_9/"
 epath="${output_dir}/step_2/ERA5_for_gapfill/"
 opath="${output_dir}/step_10/"
@@ -15,8 +18,8 @@ cdo gennn,$grid_file $era5_file $weight_file
 
 # dimension (adapt n_lats and n_longs to file dimensions divided by 3)
 n_times=1
-n_lats=990
-n_lons=1510
+n_lats=142
+n_lons=262
 
 ## loop to repeat per variable
 for y in {1950..2020}
