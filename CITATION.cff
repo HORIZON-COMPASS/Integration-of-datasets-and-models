@@ -1,0 +1,23 @@
+cff-version: 1.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Śledziowski"
+  given-names: "Jakub"
+  orcid: "https://orcid.org/0000-0001-9359-7907"
+- family-names: "Terefenko"
+  given-names: "Paweł"
+  orcid: "https://orcid.org/0000-0002-5081-8615"
+- family-names: "Giza"
+  given-names: "Andrzej"
+  orcid: "https://orcid.org/0000-0002-5459-9261"  
+- family-names: "Tanwari"
+  given-names: "Kamran"
+  orcid: "https://orcid.org/0000-0002-4811-2613"  
+- family-names: "Paprotny"
+  given-names: "Dominik"
+  orcid: "https://orcid.org/0000-0001-5090-8402"  
+title: "Framework for climate data bias-adjustment and downscaling"
+version: 1.0
+doi: 
+date-released: 2025-09-22
+url: "https://github.com/HORIZON-COMPASS/Integration-of-datasets-and-models"
