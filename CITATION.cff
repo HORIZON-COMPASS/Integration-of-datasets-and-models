@@ -16,8 +16,8 @@ authors:
 - family-names: "Paprotny"
   given-names: "Dominik"
   orcid: "https://orcid.org/0000-0001-5090-8402"
-title: "Integration-of-datasets-and-models - framework for climate data bias-adjustment and downscaling"
-version: 1.1.0
+title: "Framework for climate data bias-adjustment and downscaling"
+version: v1.1
 doi: 10.5281/zenodo.17176667
 date-released: 2025-11-17
 url: "https://github.com/HORIZON-COMPASS/Integration-of-datasets-and-models"
