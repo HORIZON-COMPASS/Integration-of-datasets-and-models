@@ -1,0 +1,61 @@
+name: compass-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+
+  # --- Core scientific ---
+  - numpy
+  - pandas
+  - scipy
+  - xarray
+  - netcdf4
+  - h5netcdf
+  - h5py
+  - statsmodels
+  - scikit-learn
+  - bottleneck
+  - dask
+  - nco
+  
+  # --- GRIB/NetCDF (bez pygrib) ---
+  - eccodes
+  - cfgrib
+  - cftime
+  - cf-units
+  - iris
+  
+  # --- Geospatial  ---
+  - geos      
+  - proj      
+  - gdal      
+  - shapely
+  - pyproj
+  - rasterio
+  - rioxarray
+  - pyogrio
+  - geopandas
+  - cartopy
+
+  # --- Viz & Apps ---
+  - matplotlib
+  - seaborn
+  - plotly
+  - folium
+  - streamlit
+  - ipykernel
+  - ipywidgets
+  - jupyterlab
+  - rich
+  - tabulate
+  - requests
+
+  - pip:
+    - cdsapi
+    - cads-api-client
+    - climate_indices
+    - lisflood-lisvap
+    - cdo
+
+  

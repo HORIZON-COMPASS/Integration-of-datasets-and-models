@@ -28,7 +28,7 @@ You can use $(SettingsDir) or $(SettingsPath) to refer directory containing the 
                 **************************************************************
             </comment>
 
-            <textvar name="CalendarDayStart" value="02/01/1950 06:00">
+            <textvar name="CalendarDayStart" value="01/01/1990 06:00">
                 <comment>
                     calendar day number of 1st day in model run
                     e.g. 1st of January: 1; 1st of June: 151 (or 152 in leap year)
@@ -41,13 +41,13 @@ You can use $(SettingsDir) or $(SettingsPath) to refer directory containing the 
                 </comment>
             </textvar>
 
-            <textvar name="StepStart" value="02/01/1950 06:00">
+            <textvar name="StepStart" value="01/01/1990 06:00">
                 <comment>
                     Number of first time step in simulation
                 </comment>
             </textvar>
 
-            <textvar name="StepEnd" value="01/01/2024 06:00">
+            <textvar name="StepEnd" value="01/01/2023 06:00">
                 <comment>
                     Number of last time step
                 </comment>
@@ -67,7 +67,7 @@ You can use $(SettingsDir) or $(SettingsPath) to refer directory containing the 
                 **************************************************************
             </comment>
 
-            <textvar name="PathOut" value="/your-location/step12/output">
+            <textvar name="PathOut" value="/CLIMB/step11/output">
                 <comment>
                     Output path
                     for Docker: /output
@@ -75,7 +75,7 @@ You can use $(SettingsDir) or $(SettingsPath) to refer directory containing the 
                 </comment>
             </textvar>
 
-            <textvar name="PathBaseMapsIn" value="/your-location/step12/basemap">
+            <textvar name="PathBaseMapsIn" value="/CLIMB/step11/basemap">
                 <comment>
                     Path to input base maps
                     for Docker: /input/basemaps
@@ -83,7 +83,7 @@ You can use $(SettingsDir) or $(SettingsPath) to refer directory containing the 
                 </comment>
             </textvar>
 
-            <textvar name="PathMeteoIn" value="/your-location/step_10">
+            <textvar name="PathMeteoIn" value="/CLIMB/step_10">
                 <comment>
                     Path to input raw meteo maps
                     for Docker: /input/efas

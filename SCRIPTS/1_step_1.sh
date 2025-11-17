@@ -1,13 +1,34 @@
+#!/usr/bin/env python3
+# -------------------------------------------------------------------------
+# CLIMB workflow step: 1  (Download ERA5-Land and ERA5 data from CDS)
+# Purpose:      Download hourly ERA5-Land and ERA5 single-level fields
+#               for a specified set of years and months over the target
+#               domain and save them as monthly GRIB files.
+# Inputs:       - years: iterable of years to download
+#               - months: iterable of months to download
+# Outputs:      - {output_dir}/step_1/ERA5Land_YYYY_M.grib
+#               - {output_dir}/step_1/ERA5_YYYY_M.grib
+# User options: - output_dir, years, months, variable list, area
+# Dependencies: - Python 3, cdsapi, valid CDS API key (~/.cdsapirc)
+# Usage:        - Adjust `output_dir`, `years`, and `months` below and run:
+#                   python 1_step_1.sh
+# -------------------------------------------------------------------------
+
 import cdsapi
 import os
 
 c = cdsapi.Client()
 
-years = range(2024, 2025)
-months = range(1, 2)
+output_dir = 'YOUR-LOCATION/CLIMB'  # <-- CHANGE THIS to your desired output directory
 
+# Define the period to be downloaded (inclusive ranges)
+years = range(1990, 2022)
+months = range(1, 12)
+
+# Loop over all requested years and months
 for y in years:
     for m in months:
+        # Download ERA5-Land (land-only, 0.1° grid) if not already present
         era5land_file = os.path.join(output_dir, 'step_1', 'ERA5Land_' + str(y) + '_' + str(m) + '.grib')
         if os.path.isfile(era5land_file):
             print('Already downloaded:', era5land_file)
@@ -40,6 +61,7 @@ for y in years:
                 },
                 era5land_file)
 
+        # Download ERA5 single-level fields (used later for coastal gap-filling)
         era5_file = os.path.join(output_dir, 'step_1', 'ERA5_' + str(y) + '_' + str(m) + '.grib')
         if os.path.isfile(era5_file):
             print('Already downloaded:', era5_file)

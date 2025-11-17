@@ -1,0 +1,19 @@
+name: lisvap-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pcraster=4.4.*
+  - numpy
+  - pandas
+  - xarray
+  - netcdf4
+  - eccodes
+  - cfgrib
+  - cftime
+  - pip
+  - pip:
+    - lisflood-lisvap==1.3.0
+    - cdsapi
+    - cads-api-client
+    - climate_indices

@@ -1,24 +1,46 @@
+#!/usr/bin/env python3
+# -------------------------------------------------------------------------
+# CLIMB workflow step: 3.2  (Subset EMO-1 to the Poland domain)
+# Purpose:      Subset the original EMO-1 NetCDF files to a fixed lat/lon
+#               window covering Poland, using chunked reading/writing to
+#               handle large files efficiently. The script loops over the
+#               EMO-1 variable folders and writes the cropped files to a
+#               separate subdirectory.
+# Inputs:       - EMO-1 NetCDF files in:
+#                   {output_dir}/step_3/emo_data/{variable}/*.nc
+# Outputs:      - Cropped EMO-1 NetCDF files in:
+#                   {output_dir}/step_3/emo_data/cutted_emo/Cutted_{variable}/
+# User options: - output_dir, lon/lat bounds, list of subfolders (variables)
+# Dependencies: - Python 3, numpy, netCDF4
+# Usage:        - Set `output_dir`, lon/lat bounds and `subfolders` as needed,
+#                 then run:
+#                   python 3_step_3_2.py
+# -------------------------------------------------------------------------
+
 import os
 import numpy as np
 from netCDF4 import Dataset
 
-"""
-The script cuts the dimensions to specific latitude and longitude
-of the original EMO1 file downloaded from https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/
-It will loop over the folder and save each file with in a different folder to prevent any permission error
-associated with .nc files
+#
+# The script subsets the original EMO-1 files downloaded from
+# https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/
+# to a fixed latitude/longitude window (here: Poland). It iterates over all
+# variable subfolders and writes the cropped files to a separate directory
+# to avoid permission issues when overwriting .nc files in-place.
+#
+output_dir = '/LOCATION-TO-YOUR-FOLDER/CLIMB'  # <-- CHANGE THIS to your desired output directory
 
-"""
-output_dir='/LOCATION-TO-YOUR-FOLDER/compass_framework'  # Keep location of Python to compass_framework folder
+input_dir = os.path.join(output_dir, "step_3", "emo_data")
+output_subdir = os.path.join(output_dir, "step_3", "emo_data", "cutted_emo")
 
-input_dir = "${output_dir}/step_3/emo_data"
-output_subdir = "${output_dir}/step_3/emo_data/cutted_emo"
-
+# Geographic bounds for the Poland domain (can be adjusted by the user)
 lon_min, lon_max = 12.950000, 26.050000  #For Poland
 lat_min, lat_max = 47.950000, 55.050000  #For Poland
 
+# Size of the chunk along the first non-lat/lon dimension (e.g. time)
 chunk_size = 100
 
+# Copy a variable in chunks, subsetting along lat/lon indices to reduce memory usage
 def process_variable_in_chunks(src_var, dst_var, lon_indices, lat_indices):
     full_shape = src_var.shape
     dim_names = src_var.dimensions
@@ -50,6 +72,7 @@ def process_variable_in_chunks(src_var, dst_var, lon_indices, lat_indices):
         chunk_data = src_var[tuple(src_chunk_slices)]
         dst_var[tuple(dst_chunk_slices)] = chunk_data
 
+# Open an EMO-1 file, subset it to the Poland domain, and write the result
 def cut_file_for_poland(input_file_path, output_file_dir):
     try:
         with Dataset(input_file_path, 'r') as src:
@@ -91,6 +114,7 @@ def cut_file_for_poland(input_file_path, output_file_dir):
         print(f"Failed to process file {input_file_path}. Error: {e}")
         raise
 
+# Process all NetCDF files in a given EMO-1 variable folder
 def process_folder(folder_path):
     try:
         output_subfolder = os.path.join(output_subdir, f"Cutted_{os.path.basename(folder_path)}")
@@ -106,6 +130,7 @@ def process_folder(folder_path):
     except Exception as e:
         print(f"Error processing folder {folder_path}. Error: {e}")
 
+# Main driver: loop over all selected EMO-1 variable folders for Poland
 def main():
     try:
         if not os.path.exists(output_subdir):
